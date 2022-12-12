@@ -16,9 +16,9 @@ using namespace std;
 class Matrix {
 	private:
 		int Array[5][5];
-		int Arr1[5][5];
-		int Arr2[5][5];
-		int Result[5][5];
+		int A[5][5];
+		int B[5][5];
+		int R[5][5];
 		int row;
 		int col;
 		
@@ -33,7 +33,7 @@ class Matrix {
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter Value: ";
-				cin >> Arr1[r][c];
+				cin >> A[r][c];
 			}
 		}
 	}
@@ -44,7 +44,7 @@ class Matrix {
 		for ( int r= 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter Value: ";
-				cin >> Arr2[r][c];
+				cin >> B[r][c];
 			}
 		}
 	}
@@ -54,13 +54,13 @@ class Matrix {
 	void Add( int row, int col ) {		
 		for ( int r = 0; r < row; ++r ) {
 			for ( int c = 0; c < col; ++c ) {
-				Result[r][c] = Arr1[r][c] + Arr2[r][c];
+				R[r][c] = A[r][c] + B[r][c];
 			}
 		}
 		//View Addition
 		for ( int r = 0; r < row; ++r ) {
 			for ( int c = 0; c < col; ++c ) {
-				cout << Result[r][c] << ", ";
+				cout << R[r][c] << ", ";
 			}
 		}
 		
@@ -71,13 +71,13 @@ class Matrix {
 	void Subtract( int row, int col ) {
 		for ( int r = 0; r < row; ++r ) {
 			for ( int c = 0; c < col; ++c ) {
-				Result[r][c] = Arr1[r][c] - Arr2[r][c];
+				R[r][c] = A[r][c] - B[r][c];
 			}
 		}
 		//View Subtraction
 		for ( int r = 0; r < row; ++r ) {
 			for ( int c = 0; c < col; ++c ) {
-				cout << Result[r][c] << ", ";
+				cout << R[r][c] << ", ";
 			}
 		}
 		
@@ -85,47 +85,36 @@ class Matrix {
 	
 	//Multiplication of Two Matrix
 	
-	void Multiply(void) {
-		int row1, row2, col1, col2;
-		
-		cout << "\nEnter the Value of Row 1: ";
-		cin >> row1;
-		cout << "\nEnter the Value of Col 1: ";
-		cin >> col1;
-		
+	void Multiply( int row1, int col1, int row2, int col2 ) {
 		for ( int r = 0; r < row1; r++ ) {
 			for ( int c = 0; c < col1; c++ ) {
-				cout << "\nEnter a value: ";
-				cin >> Arr1[r][c];
+				cout << "\nEnter a value for 1st Matrix: ";
+				cin >> A[r][c];
 			}
 		}
-		
-		cout << "\nEnter the Value of Row 2: ";
-		cin >> row2;
-		cout << "\nEnter the Value of Col 2: ";
-		cin >> col2;
+		cout << "\nSuccess." << endl;
 		
 		for ( int r = 0; r < row2; r++ ) {
 			for ( int c = 0; c < col2; c++ ) {
-				cout << "\nEnter a value: ";
-				cin >> Arr2[r][c];
+				cout << "\nEnter a value for 2nd Matrix: ";
+				cin >> B[r][c];
 			}
 		}
+		cout << "\nSuccess." << endl;
 		
 		if ( col1 == row2 ) {
-			int Mul[row1][col2];
 			for ( int i = 0; i < row1; i++ ) {
 				for ( int j = 0; j < col2; j++ ) {
-					Mul[i][j]=0;
+					R[i][j]=0;
 					for ( int k = 0; k < col1; k++ ) {
-						Mul[i][j]+=Arr1[i][k] * Arr2[k][j];
+						R[i][j]+=A[i][k] * B[k][j];
 					}
 				}
 			}
-			cout << "\nMultiplication is: ";
+			cout << "\nMultiplication is: " << endl << endl;
 			for ( int i = 0; i < row1; i++ ) {
 				for ( int j = 0; j < col2; j++ ) {
-					cout << Mul[i][j] << ", ";
+					cout << R[i][j] << " ";
 				}
 				cout << "\n";
 			}
@@ -136,30 +125,32 @@ class Matrix {
 		
 	}
 	
+	//View Matrix A
+	
+	void viewA( int row, int col ) {
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
+				cout << A[r][c] << " ";
+			}
+			cout << "\n";
+		}
+	}
+	
 	//Add Scalar to Matrix
 	
 	void addScalar( int row, int col ) {
-		int scalar, i, j;
+		int scalar;
 		cout << "\nEnter Value of Scalar: ";
 		cin >> scalar;
-		cout << "\nEnter the Size of Row: ";
-		cin >> i;
-		cout << "\nEnter the Size of Col: ";
-		cin >> j;
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter the Values for Matrix to Add: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				Array[r][c] = Array[r][c] + scalar;
-			}
-		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				cout << Array[r][c] << ", ";
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
+				A[r][c] = A[r][c] + scalar;
 			}
 		}
 	}
@@ -167,27 +158,18 @@ class Matrix {
 	//Subtract Scalar from Matrix
 	
 	void subtractScalar( int row, int col ) {
-		int scalar, i, j;
+		int scalar;
 		cout << "\nEnter Value of Scalar: ";
 		cin >> scalar;
-		cout << "\nEnter the Size of Row: ";
-		cin >> i;
-		cout << "\nEnter the Size of Col: ";
-		cin >> j;
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter the Values for Matrix to Subtract: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				Array[r][c] = Array[r][c] - scalar;
-			}
-		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				cout << Array[r][c] << ", ";
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
+				A[r][c] = A[r][c] - scalar;
 			}
 		}
 	}
@@ -195,27 +177,18 @@ class Matrix {
 	//Multiply Scalar with Matrix
 	
 	void multiplyScalar( int row, int col ) {
-		int scalar, i, j;
+		int scalar;
 		cout << "\nEnter Value of Scalar: ";
 		cin >> scalar;
-		cout << "\nEnter the Size of Row: ";
-		cin >> i;
-		cout << "\nEnter the Size of Col: ";
-		cin >> j;
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter the Values for Matrix to Multiply: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				Array[r][c] = Array[r][c] * scalar;
-			}
-		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				cout << Array[r][c] << ", ";
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
+				A[r][c] = A[r][c] * scalar;
 			}
 		}
 	}
@@ -223,27 +196,18 @@ class Matrix {
 	//Divide Scalar with Division
 	
 	void divideScalar( int row, int col ) {
-		int scalar, i, j;
+		int scalar;
 		cout << "\nEnter Value of Scalar: ";
 		cin >> scalar;
-		cout << "\nEnter the Size of Row: ";
-		cin >> i;
-		cout << "\nEnter the Size of Col: ";
-		cin >> j;
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter the Values for Matrix to Divide: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				Array[r][c] = Array[r][c] / scalar;
-			}
-		}
-		for ( int r = 0; r < i; r++ ) {
-			for ( int c = 0; c < j; c++ ) {
-				cout << Array[r][c] << ", ";
+		for ( int r = 0; r < row; r++ ) {
+			for ( int c = 0; c < col; c++ ) {
+				A[r][c] = A[r][c] / scalar;
 			}
 		}
 	}
@@ -252,27 +216,24 @@ class Matrix {
 	
 	void checkSymmetric( int row, int col ) {
 		int counter;
-		cout << "\nEnter the Number of Rows: ";
-		cin >> row;
-		cout << "\nEnter the Number of Cols: ";
-		cin >> col;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter a Value: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
 		
-		cout << "\nThe Elements of Matrix are: ";
+		cout << "\nThe Elements of Matrix are: " << endl << endl;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				cout << Array[r][c];
+				cout << A[r][c] << " ";
 			}
+			cout << "\n";
 		}
 		
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				if ( Array[r][c] != Array[c][r] ) {
+				if ( A[r][c] != A[c][r] ) {
 					counter = 1;
 					break;
 				}
@@ -291,27 +252,23 @@ class Matrix {
 	
 	void checkIdentity( int row, int col ) {
 		int counter;
-		cout << "\nEnter the Number of Rows: ";
-		cin >> row;
-		cout << "\nEnter the Number of Cols: ";
-		cin >> col;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter a Value: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		
-		cout << "\nThe Elements of Matrix are: ";
+		cout << "\nThe Elements of Matrix are: " << endl << endl;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				cout << Array[r][c];
+				cout << A[r][c] << " ";
 			}
+			cout << "\n";
 		}
 		
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				if ( ( Array[r][c] != 1 ) && ( Array[c][r] != 0 ) ) {
+				if ( ( A[r][c] != 1 ) && ( A[c][r] != 0 ) ) {
 					counter = 1;
 					break;
 				}
@@ -330,27 +287,23 @@ class Matrix {
 	
 	void checkNull ( int row, int col ) {
 		int counter;
-		cout << "\nEnter the Number of Rows: ";
-		cin >> row;
-		cout << "\nEnter the Number of Cols: ";
-		cin >> col;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
 				cout << "\nEnter a Value: ";
-				cin >> Array[r][c];
+				cin >> A[r][c];
 			}
 		}
-		
-		cout << "\nThe Elements of Matrix are: ";
+		cout << "\nThe Elements of Matrix are: " << endl << endl;
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				cout << Array[r][c];
+				cout << A[r][c] << " ";
 			}
+			cout << "\n";
 		}
 		
 		for ( int r = 0; r < row; r++ ) {
 			for ( int c = 0; c < col; c++ ) {
-				if ( Array[r][c] != 0 ) {
+				if ( A[r][c] != 0 ) {
 					counter = 1;
 					break;
 				}
@@ -367,7 +320,7 @@ class Matrix {
 };
 
 int main() {
-	int Num, opt = 1, row = 0, col = 0;
+	int opt = 1, row = 0, col = 0, row1, row2, col1, col2, scalar;
 	Matrix M;
 	
 	while ( opt != 0 ) {
@@ -392,11 +345,9 @@ int main() {
 				cin >> row;
 				cout << "\nEnter the Size of Col: ";
 				cin >> col;
-				
-				if ( ! ( ( row > 0 && row < 6 ) && ( col > 0 && col < 6 ) ) ) {
+				if( ! ( ( row > 0 && row < 6 ) && ( col > 0 && col < 6 ) ) ) {
 					cout << "\nEntered Order is Invalid.";
 				}
-				
 				else {
 					cout << "\nEnter Values for 1st Matrix: " << endl;
 					M.getValues1( row, col );
@@ -418,51 +369,89 @@ int main() {
 				break;
 				
 			case 4:
-				M.Multiply();
+				cout << "\nEnter the Value of Row 1: ";
+				cin >> row1;
+				cout << "\nEnter the Value of Col 1: ";
+				cin >> col1;
+				cout << "\nEnter the Value of Row 2: ";
+				cin >> row2;
+				cout << "\nEnter the Value of Col 2: ";
+				cin >> col2;
+				M.Multiply( row1, col1, row2, col2 );
 				cout << endl;
 				break;
 				
 			case 5:
-				cout << "\nResult is: ";
+				cout << "\nEnter the Size of Row: ";
+				cin >> row;
+				cout << "\nEnter the Size of Col: ";
+				cin >> col;
 				M.addScalar( row, col );
+				cout << "\nResult is: " << endl << endl;
+				M.viewA( row, col );
 				cout << endl;
 				break;
 				
 			case 6:
-				cout << "\nResult is: ";
+				cout << "\nEnter the Size of Row: ";
+				cin >> row;
+				cout << "\nEnter the Size of Col: ";
+				cin >> col;
 				M.subtractScalar( row, col );
+				cout << "\nResult is: " << endl << endl;
+				M.viewA( row, col );
 				cout << endl;
 				break;
 				
 			case 7:
-				cout << "\nResult is: ";
+				cout << "\nEnter the Size of Row: ";
+				cin >> row;
+				cout << "\nEnter the Size of Col: ";
+				cin >> col;
 				M.multiplyScalar( row, col );
+				cout << "\nResult is: " << endl << endl;
+				M.viewA( row, col );
 				cout << endl;
 				break;
 				
 			case 8:
-				cout << "\nResult is: ";
+				cout << "\nEnter the Size of Row: ";
+				cin >> row;
+				cout << "\nEnter the Size of Col: ";
+				cin >> col;
 				M.divideScalar( row, col );
+				cout << "\nResult is: " << endl << endl;
+				M.viewA( row, col );
 				cout << endl;
 				break;
 				
 			case 9:
+				cout << "\nEnter the Number of Rows: ";
+				cin >> row;
+				cout << "\nEnter the Number of Cols: ";
+				cin >> col;
 				M.checkSymmetric( row, col );
 				cout << endl;
 				break;
 				
 			case 10:
+				cout << "\nEnter the Number of Rows: ";
+				cin >> row;
+				cout << "\nEnter the Number of Cols: ";
+				cin >> col;
 				M.checkIdentity( row, col );
 				cout << endl;
 				break;
 				
 			case 11:
+				cout << "\nEnter the Number of Rows: ";
+				cin >> row;
+				cout << "\nEnter the Number of Cols: ";
+				cin >> col;
 				M.checkNull( row, col );
 				cout << endl;
 				break;
-				
 		}
-		
 	}
 	
 	return 0;
